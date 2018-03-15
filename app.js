@@ -8,25 +8,21 @@ app.get('/', (req, res) => {
 
 // Dynamic routing for animal noises
 app.get('/speak/:animal', (req, res) => {
-  const {animal} = req.params.toLowerCase();
+  const {animal} = req.params;
   // Turn this into an object for the love of god
-  let sound = 0;
+  const sound = {
+    pig: 'Oink',
+    dog: 'Woof Woof',
+    cat: 'MEOW',
+    cow: 'MOOOOOh',
+    goldfish: '....',
+  };
 
-  if (animal === 'pig') {
-    sound = 'Oink';
-  } else if (animal === 'dog') {
-    sound = 'woof';
-  } else if (animal === 'cat') {
-    sound = 'meow';
-  } else if (animal === 'cow') {
-    sound = 'mooooh';
-  } else if (animal === 'horse') {
-    sound = 'neigh';
+  if (sound.hasOwnProperty(animal)) {
+    res.send(`The ${animal} says '${sound[animal.toLowerCase()]}'`);
   } else {
-    sound = '{insert animal sound}';
+    res.send(`Hold my beer while I look up what sound a ${animal} makes`);
   }
-
-  res.send(`The ${animal} says '${sound}'`);
 });
 
 app.get('/repeat/:word/:count', (req, res) => {
