@@ -8,8 +8,8 @@ app.get('/', (req, res) => {
 
 // Dynamic routing for animal noises
 app.get('/speak/:animal', (req, res) => {
-  // Const animal = req.params.animal;
-  const {animal} = req.params;
+  const {animal} = req.params.toLowerCase();
+  // Turn this into an object for the love of god
   let sound = 0;
 
   if (animal === 'pig') {
@@ -45,8 +45,10 @@ app.get('*', (req, res) => {
   res.send('Sorry, page not found...what are you doing with your life?');
 });
 
-app.set('case sensitive routing', false);
-// Server listen on port settings
+/*
+ * App.set('case sensitive routing', false);
+ * Server listen on port settings
+ */
 app.listen(3000, () => {
   console.log('Server started listening on port 3000');
 });
